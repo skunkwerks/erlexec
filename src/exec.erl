@@ -1177,7 +1177,7 @@ test_sync() ->
 
 test_winsz() ->
     {ok, P, I} = exec:run(
-        ["/bin/bash", "-i", "-c", "echo started; read x; echo LINES=$(tput lines) COLUMNS=$(tput cols)"],
+        ["/usr/local/bin/bash", "-i", "-c", "echo started; read x; echo LINES=$(tput lines) COLUMNS=$(tput cols)"],
         [stdin, stdout, stderr, monitor, pty]),
     ?receiveMatch({stdout, I, <<"started\r\n">>}, 3000),
     ok = exec:winsz(I, 99, 88),
@@ -1235,7 +1235,7 @@ test_cmd() ->
     % Cmd given as list
     ?assertMatch(
         {ok, [{stdout, [<<"ok\n">>]}]},
-        exec:run(["/bin/bash", "-c", "echo ok"], [sync, stdout])),
+        exec:run(["/usr/local/bin/bash", "-c", "echo ok"], [sync, stdout])),
     ?assertMatch(
         {ok, [{stdout, [<<"ok\n">>]}]},
         exec:run(["/bin/echo", "ok"], [sync, stdout])).
@@ -1257,7 +1257,7 @@ test_executable() ->
     % Cmd given as list
     ?assertMatch(
         {ok, [{stdout,[<<"ok\n">>]}]},
-        exec:run(["/bin/bash", "-c", "/bin/echo ok"],
+        exec:run(["/usr/local/bin/bash", "-c", "/bin/echo ok"],
                  [sync, {executable, "/bin/sh"}, stdout, stderr])),
     ?assertMatch(
         {ok, [{stdout,[<<"XYZ\n">>]}]},
@@ -1305,7 +1305,7 @@ test_pty() ->
         exec:run("tty", [stdin, stdout, sync])),
     ?assertMatch({ok,[{stdout,[<<"/dev/", _/binary>>]}]},
         exec:run("tty", [stdin, stdout, pty, sync])),
-    {ok, P, I} = exec:run("/bin/bash --norc -i", [stdin, stdout, pty, monitor]),
+    {ok, P, I} = exec:run("/usr/local/bin/bash --norc -i", [stdin, stdout, pty, monitor]),
     exec:send(I, <<"echo ok\n">>),
     receive
     {stdout, I, <<"echo ok\r\n">>} ->

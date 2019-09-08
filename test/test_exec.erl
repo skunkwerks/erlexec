@@ -75,7 +75,7 @@ init([Owner, Count, DelayMS]) ->
     process_flag(trap_exit, true),
     Delay = integer_to_binary(DelayMS),
     ok = file:write_file(?SCRIPT,
-        <<"#!/bin/bash\n"
+        <<"#!/usr/local/bin/bash\n"
           "echo 'This is a test script $$'\n"
           "sleep $[ ( $RANDOM % ", Delay/binary, " ) + 1 ]s\n"
           "exit 12\n">>),

@@ -335,7 +335,7 @@ Got: {stdout,26143,<<"baz\nbar\nfoo\n">>}
 % Execute a non-existing command
 31> exec:run("echo1 Test", [sync, stdout, stderr]).   
 {error,[{exit_status,32512},
-        {stderr,[<<"/bin/bash: echo1: command not found\n">>]}]}
+        {stderr,[<<"/usr/local/bin/bash: echo1: command not found\n">>]}]}
 
 % Capture stdout/stderr of the executed command
 32> exec:run("echo Test; echo Err 1>&2", [sync, stdout, stderr]).    
@@ -357,7 +357,7 @@ Got: {stdout,26143,<<"baz\nbar\nfoo\n">>}
 {ok, [{stdout, [<<"ok\n">>]}]}
 
 % Execute a shell with custom options
-36> exec:run(["/bin/bash", "-c", "echo ok"], [sync, stdout])).
+36> exec:run(["/usr/local/bin/bash", "-c", "echo ok"], [sync, stdout])).
 {ok, [{stdout, [<<"ok\n">>]}]}
 '''
 
