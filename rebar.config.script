@@ -4,7 +4,7 @@
 {CXX,Target,Sysroot} =
     case os:getenv("CXX") of
     false    ->
-        {"g++",erlang:system_info(system_architecture),""};
+        {"clang++",erlang:system_info(system_architecture),""};
     Compiler ->
         {Compiler,string:strip(os:cmd(Compiler ++ " -dumpmachine"),   right, $\n),
                   string:strip(os:cmd(Compiler ++ " -print-sysroot"), right, $\n)}
